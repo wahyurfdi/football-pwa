@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+		<title>Premier League 2020/2021</title>
+
+		<meta charset="UTF-8"/>
+		<meta name="description" content="My first PWA"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	
+	  	<link rel="stylesheet" href="../css/vendor/materialize.min.css">
+	  	<link rel="stylesheet" href="../css/vendor/materialize-icon.css">
+	  	<link rel="stylesheet" href="../css/custom.css">
+
+	  	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+	  	<link rel="icon" href="../img/icon.svg">
+
+	  	<!-- MANIFEST ADD TO BACKGROUND -->
+	  	<link rel="apple-touch-icon" href="../img/icon-pwa.png">
+	  	<link rel="manifest" href="../manifest.json">
+		<meta name="theme-color" content="#FFF">
+	</head>
+	<body>
+		<nav class="purple darken-4 fixed-top">
+			<div class="nav-wrapper pl-8">
+				<a href="/pages/teams.html"><i class="material-icons left">chevron_left</i> TEAM LIST</a>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="row center-h mt-30">
+				<div id="body-container" class="col s12 m10 l10 ml-0">
+					<div class="row">
+						<div class="col s12 m12 l12 pl-0 pr-0">
+							<div class="row pr-8 pl-8">
+								<div class="col s12 card-custom">
+									<div class="mb-8"><b>Keterangan: </b></div>
+									<div class="border-default pl-8 fs-12">Liga Reguler</div>
+									<div class="border-ucl pl-8 fs-12">Liga Champions</div>
+									<div class="border-uel pl-8 fs-12">Liga Eropa</div>
+								</div>
+							</div>
+							<div class="row" id="data-jadwal">
+								<!-- FROM API -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="../js/vendor/materialize.min.js"></script>
+	<script src="../js/vendor/idb.js"></script>
+	<script src="../js/db.js"></script>
+	<script src="../js/api.js"></script>
+	<script src="../js/index.js"></script>
+
+	<script type="module">
+		document.addEventListener("DOMContentLoaded", function() {
+			getJadwal()
+		})
+	</script>
+
+	</html>

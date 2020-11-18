@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+		<title>Premier League 2020/2021</title>
+
+		<meta charset="UTF-8"/>
+		<meta name="description" content="My first PWA"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	
+	  	<link rel="stylesheet" href="../css/vendor/materialize.min.css">
+	  	<link rel="stylesheet" href="../css/vendor/materialize-icon.css">
+	  	<link rel="stylesheet" href="../css/custom.css">
+
+	  	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+	  	<link rel="icon" href="../img/icon.svg">
+
+	  	<!-- MANIFEST ADD TO BACKGROUND -->
+	  	<link rel="apple-touch-icon" href="../img/icon-pwa.png">
+	  	<link rel="manifest" href="../manifest.json">
+		<meta name="theme-color" content="#FFF">
+	</head>
+	<body>
+		<nav class="purple darken-4 fixed-top">
+			<div class="nav-wrapper">
+				<img src="../img/premier-league-logo.png" class="brand-logo logo-premier" width="100" alt="Logo App">
+				<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+				<ul class="right hide-on-med-and-down topnav">
+			        
+			    </ul>
+			</div>
+		</nav>
+
+		<ul id="slide-out" class="sidenav">
+			<li>
+				<div class="user-view">
+					<div class="background">
+						<img src="../img/background-profile.png" alt="Background Profile">
+					</div>
+					<img class="circle border-white" src="../img/me.jpg" alt="Foto Pembuat">
+					<span class="white-text name"><b>Wahyu Rifaldi</b></span>
+					<span class="white-text email">rifaldiwahyu3@gmail.com</span>
+				</div>
+			</li>
+		</ul>
+
+		<div class="container">
+			<div class="row center-h mt-30">
+				<div id="body-container" class="col s12 m10 l10 ml-0">
+					<div class="row">
+						<div class="col s12 m12 l12 pl-0 pr-0">
+							<div class="row pr-8 pl-8">
+								<div class="col s12 card-custom">
+									<div class="mb-8"><b>Keterangan: </b></div>
+									<div class="border-default pl-8 fs-12">Liga Reguler</div>
+									<div class="border-ucl pl-8 fs-12">Liga Champions</div>
+									<div class="border-uel pl-8 fs-12">Liga Eropa</div>
+								</div>
+							</div>
+							<div class="row" id="data-jadwal-saved">
+								<!-- FROM API -->
+								<div class="col s12 m6 l6 xl4 mb-16 pr-8 pl-8">
+									<div class="card-custom ${status}">
+										<div class="row mx-0 mb-0 w-100">
+											<div class="col s11 pr-0 pl-0">
+												Arsenal
+											</div>
+											<div class="col s1 pl-0 pr-0 right-align pr-4">
+												0
+											</div>
+											<div class="col s11 pr-0 pl-0">
+												Arsenal
+											</div>
+											<div class="col s1 pl-0 pr-0 right-align pr-4">
+												0
+											</div>
+											<div class="col s11 pr-0 pl-0 badge-jadwal color-purple mt-16 text-bold">
+												12 Okt 2020, 10:00
+											</div>
+											<div class="col s1 pr-0 pl-0 mt-20 right-align">
+												<a href="#" class="color-red" onclick="onSaveJadwal('${match.id}')"><i class="material-icons fs-18">notifications_off</i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="../js/vendor/materialize.min.js"></script>
+	<script src="../js/vendor/idb.js"></script>
+	<script src="../js/db.js"></script>
+	<script src="../js/api.js"></script>
+	<script src="../js/index.js"></script>
+
+	<script type="module">
+		document.addEventListener("DOMContentLoaded", function() {
+			getJadwalSaved()
+		})
+	</script>
+
+	</html>
