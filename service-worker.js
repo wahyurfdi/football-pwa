@@ -1,79 +1,77 @@
-const CACHE_NAME = "premierleague-v5";
-const URL_TO_CACHE = [
-	"/",
-	"/components/navbar.html",
-	"/css/vendor/materialize-icon.css",
-	"/css/vendor/materialize.css",
-	"/css/vendor/materialize.min.css",
-	"/css/custom.css",
-	"/js/vendor/idb.js",
-	"/js/vendor/materialize.js",
-	"/js/vendor/materialize.min.js",
-	"/js/api.js",
-	"/js/db.js",
-	"/js/index.js",
-	"/manifest.json",
-	"/push.js",
-	"/img/background-profile.png",
-	"/img/icon-pwa-512.png",
-	"/img/icon-pwa-192.png",
-	"/img/icon-pwa.png",
-	"/img/icon.svg",
-	"/img/me.jpg",
-	"/img/premier-league-logo.png",
-	"/index.html",
-	"/pages/schedule.html",
-	"/pages/schedule_saved.html",
-	"/pages/teams.html",
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+
+workbox.precaching.precacheAndRoute([
+    { url: "/components/navbar.html", 				revision: "1" },
+    { url: "/css/vendor/materialize-icon.css", 		revision: "1" },
+    { url: "/css/vendor/materialize.css", 			revision: "1" },
+    { url: "/css/vendor/materialize.min.css", 		revision: "1" },
+    { url: "/css/custom.css", 						revision: "1" },
+    { url: "/js/vendor/idb.js", 					revision: "1" },
+    { url: "/js/vendor/materialize.js", 			revision: "1" },
+    { url: "/js/vendor/materialize.min.js", 		revision: "1" },
+    { url: "/js/api.js", 							revision: "2" },
+    { url: "/js/db.js", 							revision: "1" },
+    { url: "/js/index.js", 							revision: "1" },
+    { url: "/manifest.json", 						revision: "1" },
+    { url: "/push.js", 								revision: "1" },
+    { url: "/img/background-profile.png", 			revision: "1" },
+    { url: "/img/icon-pwa-512.png", 				revision: "1" },
+    { url: "/img/icon-pwa-192.png", 				revision: "1" },
+    { url: "/img/icon-pwa.png", 					revision: "1" },
+    { url: "/img/icon.svg", 						revision: "1" },
+    { url: "/img/me.jpg", 							revision: "1" },
+    { url: "/img/premier-league-logo.png", 			revision: "1" },
+    { url: "/", 									revision: "1" },
+    { url: "/index.html", 							revision: "1" },
+    { url: "/pages/schedule.html", 					revision: "1" },
+    { url: "/pages/schedule_saved.html", 			revision: "1" },
+    { url: "/pages/teams.html", 					revision: "3" },
+    { url: "/pages/teams_detail.html", 				revision: "1" }
+]);
+
+workbox.routing.registerRoute(
 	"https://fonts.googleapis.com/css2?family=Varela+Round&display=swap",
-	"https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"
-];
-
-self.addEventListener("install", function (event) {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then(function (cache) {
-			return cache.addAll(URL_TO_CACHE);
-		})
-	);
-});
-
-self.addEventListener("fetch", function (event) {
-	var base_url = "https://api.football-data.org/";
-
-	if (event.request.url.indexOf(base_url) > -1) {
-		event.respondWith(
-			caches.open(CACHE_NAME).then(function (cache) {
-				return fetch(event.request).then(function (response) {
-					cache.put(event.request.url, response.clone());
-					return response;
-				});
+	workbox.strategies.cacheFirst({
+		cacheName: "google-font-webfonts",
+		plugins: [
+			new workbox.cacheableResponse.Plugin({
+				statuses: [0, 200]
+			}),
+			new workbox.expiration.Plugin({
+				maxAgeSeconds: 60 * 60 * 24 * 365,
+				maxEntries: 30
 			})
-		);
-	} else {
-		event.respondWith(
-			caches
-			.match(event.request, { ignoreSearch: true })
-			.then(function (response) {
-				return response || fetch(event.request);
-			})
-		);
-	}
-});
+		]
+	})
+);
 
-self.addEventListener("activate", function (event) {
-	event.waitUntil(
-		caches.keys().then(function (cacheNames) {
-			return Promise.all(
-				cacheNames.map(function (cacheName) {
-					if (cacheName != CACHE_NAME) {
-						console.log("Serviceworker: cache" + cacheName + " dihapus");
-						return caches.delete(cacheName);
-					}
-				})
-			);
-		})
-	);
-});
+workbox.routing.registerRoute(
+	"https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
+	workbox.strategies.cacheFirst({
+		cacheName: "materialize-icon"
+	})
+);
+
+workbox.routing.registerRoute(
+	/^https:\/\/api\.football-data\.org\/v2/,
+	workbox.strategies.staleWhileRevalidate({
+		cacheName: "api-football"
+	})
+);
+
+workbox.routing.registerRoute(
+	new RegExp("/schedule.html"),
+	workbox.strategies.networkFirst({
+		cacheName: "dynamic-page-schedule"
+	})
+);
+
+workbox.routing.registerRoute(
+	new RegExp("/teams_detail.html"),
+	workbox.strategies.networkFirst({
+		cacheName: "dynamic-page-team-detail"
+	})
+);
 
 self.addEventListener("push", function (event) {
 	let body;

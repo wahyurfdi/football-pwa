@@ -24,7 +24,7 @@
 	<body>
 		<nav class="purple darken-4 fixed-top">
 			<div class="nav-wrapper pl-8">
-				<a href="/pages/teams.html"><i class="material-icons left">chevron_left</i> JADWAL</a>
+				<a href="/pages/teams.html"><i class="material-icons left">chevron_left</i> DETAIL</a>
 			</div>
 		</nav>
 
@@ -33,15 +33,15 @@
 				<div id="body-container" class="col s12 m10 l10 ml-0">
 					<div class="row">
 						<div class="col s12 m12 l12 pl-0 pr-0">
-							<div class="row pr-8 pl-8">
-								<div class="col s12 card-custom">
-									<div class="mb-8"><b>Keterangan: </b></div>
-									<div class="border-default pl-8 fs-12">Liga Reguler</div>
-									<div class="border-ucl pl-8 fs-12">Liga Champions</div>
-									<div class="border-uel pl-8 fs-12">Liga Eropa</div>
+							<div class="row pr-8 pl-8" id="team-desc">
+								<!-- FROM API -->
+							</div>
+							<div class="row mb-0">
+								<div class="col s12">
+									<p class="fs-14 color-purple text-bold">ANGGOTA TEAM</p>
 								</div>
 							</div>
-							<div class="row" id="data-jadwal">
+							<div class="row" id="team-player">
 								<!-- FROM API -->
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 
 	<script type="module">
 		document.addEventListener("DOMContentLoaded", function() {
-			getJadwal()
+			getTeamDetail()
 		})
 	</script>
 
