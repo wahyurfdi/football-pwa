@@ -1,0 +1,5 @@
+FIrebase:
+https://hosting-football-pwa.web.app
+
+Github:
+https://github.com/wahyurfdi/footballpwa/tree/develop
